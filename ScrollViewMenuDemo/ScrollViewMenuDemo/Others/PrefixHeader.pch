@@ -1,0 +1,47 @@
+//
+//  PrefixHeader.pch
+//  ScrollViewMenuDemo
+//
+//  Created by xby on 2017/2/15.
+//  Copyright © 2017年 xby. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#define kScreenHeight ([UIScreen mainScreen].bounds.size.height)
+#define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
+#define kScreenMaxHeight (MAX(kScreenWidth, kScreenHeight))
+#define kScreenMinHeight (MIN(kScreenWidth, kScreenHeight))
+
+#define kIsIpad (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPad)
+#define kIsIphone (UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiomPhone)
+#define kIsRetina ([[UIScreen mainScreen] scale] >= 2.0)
+
+#define kIsIphone4OrLess (kIsIphone && kScreenMaxHeight < 568.0)
+#define kIsIphone5 (kIsIphone && kScreenMaxHeight == 568.0)
+#define kIsIphone6 (kIsIphone && kScreenMaxHeight == 667.0)
+#define kIsIphone6p (kIsIphone && kScreenMaxHeight == 736.0)
+
+#define Height(height6p,Height6,Height5or4) (kIsIphone6p?height6p:\
+(kIsIphone6?Height6:(kIsIphone5||kIsIphone4OrLess)?Height5or4:kIsIphone6p))
+#define HeightAll(height6p,Height6,Height5,height4) (kIsIphone6p?height6p:\
+(kIsIphone6?Height6:(kIsIphone5?Height5:(kIsIphone4OrLess?height4:height6p))))
+
+#define CalcHeight(height) Height(height*1.1,height,height*0.9)
+#define CalcFont(size) Height((size + 0.5),size,(size>=16?size-1:size-0.6))
+
+#define ColorFromRGB(rgbValue) [UIColor colorWithRed:((float)(((rgbValue) & 0xFF0000) >> 16))/255.0 green:((float)(((rgbValue) & 0xFF00) >> 8))/255.0 blue:((float)((rgbValue) & 0xFF))/255.0 alpha:1.0]
+
+#define kViewBackgroundColor ColorFromRGB(0xf5f5f5) //view默认背景色
+#define kSeperatorLineColor ColorFromRGB(0xdadada) //分隔线颜色
+#define kStatusBarColor ColorFromRGB(0x3285ff) //status 颜色
+#define kLittleBlackFrontColor ColorFromRGB(0x101010) //稍黑
+#define kRegularFontColor ColorFromRGB(0x333333) //正常字体颜色
+#define kGrayFontColor ColorFromRGB(0x666666)  //灰色字体颜色
+#define kLightGrayFontColor ColorFromRGB(0x999999)
+#define kOrangeColor ColorFromRGB(0xffb43d)
+#define kGreenColor ColorFromRGB(0x29ca98)
+
+
+#endif /* PrefixHeader_pch */

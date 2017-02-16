@@ -1,0 +1,198 @@
+//
+//  TPHttpManager.m
+//  TransportPlatform
+//
+//  Created by HaoMaiQi-XXR on 16/5/13.
+//  Copyright © 2016年 HaoMaiQi. All rights reserved.
+//
+
+#import "TPHttpManager.h"
+#import "AFHTTPSessionManager+Parameters.h"
+#import <NSDictionary+YYAdd.h>
+
+
+NSString * const tpHttpsBaseUrl = @"https://greatgastest.enn.cn";
+NSString * const tpHttpBaseUrl = @"http://10.37.148.191";
+//NSString * const tpHttpBaseUrl = @"http://10.37.148.191/auct";
+//NSString * const tpHttpBaseUrl = @"https://greatgastest.enn.cn";
+//NSString * const tpHttpBaseUrl = @"https://www.greatgas.cn";
+
+BOOL
+judgeResultState(id object){
+    BOOL success = NO;
+    if ([object isKindOfClass:[NSDictionary class]]) {
+        NSInteger result = [object[@"state"] integerValue];
+        if (result == 1000) {
+            success = YES;
+        } else {
+            NSString *stateDescribe = [object objectForKey:@"stateDescribe"];
+            if ([stateDescribe isKindOfClass:[NSString class]] && stateDescribe.length) {
+                [UIViewController showMBProcessHUDInWindowWithText:stateDescribe];
+            }
+        }
+    }
+    return success;
+}
+
+static NSString * AFGetAlertViewTitleAndMessageFromError(NSError *error, NSString * __autoreleasing *title, NSString * __autoreleasing *message) {
+    if (error.localizedDescription && (error.localizedRecoverySuggestion || error.localizedFailureReason)) {
+        *title = error.localizedDescription;
+        
+        if (error.localizedRecoverySuggestion) {
+            *message = error.localizedRecoverySuggestion;
+        } else {
+            *message = error.localizedFailureReason;
+        }
+        return *title;
+    } else if (error.localizedDescription) {
+        *title = NSLocalizedStringFromTable(@"Error", @"AFNetworking", @"Fallback Error Description");
+        *message = error.localizedDescription;
+        return *message;
+    } else {
+        *title = NSLocalizedStringFromTable(@"Error", @"AFNetworking", @"Fallback Error Description");
+        *message = [NSString stringWithFormat:NSLocalizedStringFromTable(@"%@ Error: %ld", @"AFNetworking", @"Fallback Error Failure Reason Format"), error.domain, (long)error.code];
+        return *message;
+    }
+}
+
+void
+checkNetWorkAvailable(NSError *error) {
+    if (!(TPREQUEST.reachabilityManager.reachable)) {
+        [UIViewController showMBProcessHUDInWindowWithText:@"网络异常，请检查您的网络"];
+    } else {
+        NSString *title,*message;
+        message = AFGetAlertViewTitleAndMessageFromError(error, &title, &message);
+        [UIViewController showMBProcessHUDInWindowWithText:message];
+    }
+}
+
+NSString *fullHttpsUrl(NSString *uri) {
+    return [tpHttpsBaseUrl stringByAppendingPathComponent:uri];
+}
+
+NSString *fullHttpUrl(NSString *uri) {
+    return [tpHttpBaseUrl stringByAppendingPathComponent:uri];
+}
+
+
+TPTASK *
+TPPOST(NSString *url,
+       NSDictionary * param,
+       DDRequestSuccess success,
+       DDRequestFailure failure){
+    return TPPOSTBACKGROUND(url, param, success, failure, YES, YES);
+}
+
+//不会提示错误信息
+TPTASK *
+TPPOSTBACKGROUND(NSString *url,
+                 NSDictionary * param,
+                 DDRequestSuccess success,
+                 DDRequestFailure failure, BOOL showError, BOOL needDealParam){
+    NSDictionary *postDic = param;
+    if (needDealParam) {
+        NSMutableArray *paramsToArr;
+        if ([param isKindOfClass:[NSDictionary class]]) {
+            
+            paramsToArr = [NSMutableArray array];
+            for (NSString *key in [param allKeys]) {
+                
+                NSDictionary *dic = @{key : param[key]};
+                [paramsToArr addObject:dic];
+            }
+        }
+        postDic = @{@"arguments": paramsToArr ? paramsToArr : param};
+    }
+    
+    return [TPREQUEST.manager POST:url parameters:postDic success:^(TPTASK *task, id object) {
+        
+        
+        if ([task task_isCanceled]) return;
+        success?success(task,object,judgeResultState(object)):1;
+    } failure:^(TPTASK *task, NSError *error) {
+        if ([task task_isCanceled]) return;
+        if (showError) {
+            checkNetWorkAvailable(error);
+        }
+        failure?failure(task,error):1;
+    } presetParameterEnabled:YES];
+}
+
+TPTASK *
+TPPOSTDATA(NSString *url,
+           NSDictionary * param,
+           NSDictionary * bodyData,
+           DDRequestSuccess success,
+           DDRequestFailure failure){
+    return [TPREQUEST.manager POST:url parameters:param bodyData:bodyData success:^(TPTASK *task, id object) {
+        if ([task task_isCanceled]) return;
+        success?success(task,object,judgeResultState(object)):1;
+    } failure:^(TPTASK *task, NSError *error) {
+        if ([task task_isCanceled]) return;
+        checkNetWorkAvailable(error);
+        failure?failure(task,error):1;
+    } presetParameterEnabled:YES];
+}
+
+TPTASK *
+TPGET(NSString *url,
+      NSDictionary * param,
+      DDRequestSuccess success,
+      DDRequestFailure failure){
+    return [TPREQUEST.manager GET:url parameters:param success:^(TPTASK *task, id object) {
+        if ([task task_isCanceled]) return;
+        success?success(task,object,judgeResultState(object)):1;
+    } failure:^(TPTASK *task, NSError *error) {
+        if ([task task_isCanceled]) return;
+        checkNetWorkAvailable(error);
+        failure?failure(task,error):1;
+    } presetParameterEnabled:YES];
+}
+
+
+@implementation TPHttpManager
+
++ (instancetype)sharedClient {
+    static TPHttpManager *_sharedClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        _sharedClient = [[TPHttpManager alloc]init];
+//        _sharedClient.manager = [[AFHTTPSessionManager alloc] initWithBaseURL:[NSURL URLWithString:tpHttpsBaseUrl]];
+        _sharedClient.manager = [[AFHTTPSessionManager alloc] init];
+        
+        [_sharedClient.manager.responseSerializer setAcceptableContentTypes:[NSSet setWithObjects:@"text/html", nil]];
+        
+        _sharedClient.manager.securityPolicy = [AFSecurityPolicy policyWithPinningMode:AFSSLPinningModeNone];
+        _sharedClient.manager.securityPolicy.allowInvalidCertificates = YES;
+        _sharedClient.manager.securityPolicy.validatesDomainName = NO;
+        _sharedClient.manager.requestSerializer = [AFJSONRequestSerializer serializer];
+//        _sharedClient.manager.requestSerializer.timeoutInterval = 20;
+        _sharedClient.manager.requestSerializer.timeoutInterval = 60*60;
+        [_sharedClient.manager.requestSerializer setValue:@"artemisToken_isvalid" forHTTPHeaderField:@"artemisToken"];
+//        [_sharedClient.manager.requestSerializer setValue:@"gzip" forHTTPHeaderField:@"Content-Encoding"];
+        _sharedClient.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/json", @"text/plain", @"text/html", @"multipart/form-data", @"application/x-www-form-urlencoded",nil];
+        
+//        _sharedClient.manager.responseSerializer.acceptableStatusCodes
+        
+        _sharedClient.reachabilityManager = [AFNetworkReachabilityManager managerForDomain:@"greatgastest.enn.cn"];
+        [_sharedClient.reachabilityManager setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            NSLog(@"network did change to %@",AFStringFromNetworkReachabilityStatus(status));
+            NSLog(@"%d",_sharedClient.reachabilityManager.reachable);
+        }];
+        [_sharedClient.reachabilityManager startMonitoring];
+        
+    });
+    return _sharedClient;
+}
+
+
++ (void)updateAppConfigures {
+    NSString *uri = @"/supportApi/config/getAppConfigs";
+    TPPOST(fullHttpUrl(uri), [NSDictionary dictionary], ^(NSURLSessionDataTask *task, id object, BOOL suc) {
+        NSLog(@"%@",object);
+    }, ^(NSURLSessionDataTask *task, NSError *error) {
+        ;
+    });
+}
+@end
+
