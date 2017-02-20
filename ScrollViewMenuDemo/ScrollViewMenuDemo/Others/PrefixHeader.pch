@@ -2,12 +2,17 @@
 //  PrefixHeader.pch
 //  ScrollViewMenuDemo
 //
-//  Created by xby on 2017/2/15.
+//  Created by xby on 2017/2/6.
 //  Copyright © 2017年 xby. All rights reserved.
 //
 
 #ifndef PrefixHeader_pch
 #define PrefixHeader_pch
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+#define GCD_MAINQUEUE dispatch_get_main_queue()
+#define GCD_GLOBALQUEUE dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
 
 #define kScreenHeight ([UIScreen mainScreen].bounds.size.height)
 #define kScreenWidth ([UIScreen mainScreen].bounds.size.width)
@@ -43,5 +48,181 @@
 #define kOrangeColor ColorFromRGB(0xffb43d)
 #define kGreenColor ColorFromRGB(0x29ca98)
 
+#define RequestKey @"353eedb9ddb49d8b758523f8251d1ea1"
+
+#define ggbBlue 0x3285ff
+#define ggbBlack 0x000000
+#define ggbWhite 0xffffff
+#define ggbYellow 0xffb43d
+#define ggbLineColor 0xdadada
+#define ggbOrange 0xfe771b
+#define ggbGreen 0x29ca98
+
+//亮白
+#define ggbWhiteGray 0xf3f4f7
+//亮灰
+#define ggbHighlightGray 0xeeeeee
+//浅灰
+#define ggbLightGray 0x9a9a9a
+//灰
+#define ggbGray 0x5c5c5c
+//深灰
+#define ggbDeepGray 0x101010
+
+#define dFlagBlue       0x5c95e2
+#define dFlagBlueDark   0x2a5faf
+#define dFlagWhite      0xffffff
+#define dFlagBG         0Xf0eff5
+#define dFlagOrange     0xff761d
+#define dFlagYellow     0xffa42d
+#define dFlagGray       0xa1a1a1
+#define dFlagGrayLine   0xe4e4e4
+#define dFlagGrayDark   0x666666
+#define dFlagBlack      0x414141
+#define dFlagGreen      0x87e048
+#define dFlagRed        0xff571c
+#define dFlagGreenTP    0x2abfa4
+
+#define kBtnColor kStatusBarColor
+#define kBtnHighlightedColor ColorFromRGB(0xf2bc02)
+#define kBtnHeight Height(50, 48, 46)
+
+#define kSeperatorLineHeight 0.5 //分隔线高度
+#define kContentSpaceToEdge CalcHeight(12) //视图内容距离屏幕边缘的距离
+
+#define LabelGetter(property,textAlignmentt,textColorr,fontt) LabelGetterWithCode(property,textAlignmentt,textColorr,fontt,{})
+
+#define LabelGetterWithCode(property,textAlignmentt,textColorr,fontt,execCode) - (UILabel *)property {\
+if (!_##property) {\
+_##property = [UILabel new];\
+if (textAlignmentt) { _##property.textAlignment = textAlignmentt;}\
+_##property.textColor = textColorr;\
+if (fontt) _##property.font = fontt;\
+execCode;\
+}\
+return _##property;\
+}
+
+#define ImageViewGetter(property, imageName) - (UIImageView *)property {\
+if (!_##property) {\
+_##property = [UIImageView new];\
+if (imageName.length) _##property.image = [UIImage imageNamed:imageName];\
+}\
+return _##property;\
+}
+
+#define ViewGetter(property, backgroundColorr) - (UIView *)property {\
+if (!_##property) {\
+_##property = [UIView new];\
+_##property.backgroundColor = backgroundColorr;\
+}\
+return _##property;\
+}
+
+#define ButtonGetterWithCode(property, titleColor, fontt, backgroundImage, cornerRadiuss, execCode)  - (UIButton *)property {\
+if (!_##property) {\
+_##property = [UIButton buttonWithType:UIButtonTypeCustom];\
+if(titleColor){[_##property setTitleColor:titleColor forState:UIControlStateNormal];}\
+if(fontt){_##property.titleLabel.font = fontt;}\
+if (backgroundImage) { [_##property setBackgroundImage:backgroundImage forState:UIControlStateNormal];}\
+if (cornerRadiuss!=0) {_##property.layer.cornerRadius = cornerRadiuss;_##property.layer.masksToBounds = YES;}\
+execCode;\
+}\
+return _##property;\
+}
+
+#define ButtonGetter(property, titleColor, fontt, backgroundImage, cornerRadiuss) ButtonGetterWithCode(property, titleColor, fontt, backgroundImage, cornerRadiuss, {})
+
+#define ButtonWithImageGetter(property, imageName,execCode) - (UIButton *)property {\
+if (!_##property) {\
+_##property = [UIButton buttonWithType:UIButtonTypeCustom];\
+if (imageName.length) [_##property setImage:[UIImage imageNamed:imageName] forState:UIControlStateNormal];\
+execCode;\
+}\
+return _##property;\
+}
+
+
+#define TPSafeStringPropertyGetter(property) - (NSString *)property {\
+if (!_##property || ([_##property isKindOfClass:[NSString class]] && !_##property.length)) {\
+_##property = @"";\
+}\
+return _##property;\
+}
+
+#define PropertyGetter(property, propertyType) - (propertyType *)property {\
+if (!_##property) {\
+_##property = [propertyType new];\
+}\
+return _##property;\
+}
+
+
+/*
+ 专门用来保存单例代码
+ */
+
+// @interface
+#define singleton_interface(className) \
++ (className *)shared##className;
+
+
+// @implementation
+#define singleton_implementation(className) \
+static className *_instance; \
++ (id)allocWithZone:(NSZone *)zone \
+{ \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+_instance = [super allocWithZone:zone]; \
+}); \
+return _instance; \
+} \
++ (className *)shared##className \
+{ \
+static dispatch_once_t onceToken; \
+dispatch_once(&onceToken, ^{ \
+_instance = [[self alloc] init]; \
+}); \
+return _instance; \
+}
+
+#pragma mark - Block Weak self
+
+#if __has_include(<ReactiveCocoa/ReactiveCocoa.h>)
+#import <ReactiveCocoa/ReactiveCocoa.h>
+#ifndef spweakify
+#define spweakify(...) @weakify(__VA_ARGS__)
+#endif
+
+#ifndef spstrongify
+#define spstrongify(...) @strongify(__VA_ARGS__)
+#endif
+
+#else
+#ifndef spweakify
+#if DEBUG
+#define spweakify(object) @autoreleasepool{} __weak __typeof__(object) weak##_##object = object
+#else
+#define spweakify(object) @try{} @finally{} {} __weak __typeof__(object) weak##_##object = object
+#endif
+#endif
+
+#ifndef spstrongify
+#if DEBUG
+#define spstrongify(object) @autoreleasepool{} __typeof__(object) object = weak##_##object
+#else
+#define spstrongify(object) @try{} @finally{} __typeof__(object) object = weak##_##object
+#endif
+#endif
+
+#endif
+
+#define TPSafeStringPropertyGetter(property) - (NSString *)property {\
+if (!_##property || ([_##property isKindOfClass:[NSString class]] && !_##property.length)) {\
+_##property = @"";\
+}\
+return _##property;\
+}
 
 #endif /* PrefixHeader_pch */

@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "XBYViewController.h"
+#import "XBYMainTabBarViewController.h"
 
 @interface AppDelegate ()
 
@@ -20,9 +20,9 @@
     // Override point for customization after application launch.
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:[XBYViewController new]];
-    nav.view.backgroundColor = [UIColor colorWithRed:105/256.0 green:158/256.0 blue:105/256.0 alpha:1.0];
-    self.window.rootViewController = nav;
+    XBYMainTabBarViewController *tab = [[XBYMainTabBarViewController alloc] init];
+
+    self.window.rootViewController = tab;
     [self.window makeKeyAndVisible];
     
     return YES;

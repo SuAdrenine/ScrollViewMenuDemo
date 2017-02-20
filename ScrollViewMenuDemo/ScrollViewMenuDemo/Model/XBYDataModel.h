@@ -9,5 +9,9 @@
 #import <Foundation/Foundation.h>
 
 @interface XBYDataModel : NSObject
-
+@property (nonatomic, strong) NSString *ctime;
+@property (nonatomic, strong) NSString *title;
+@property (nonatomic, strong) NSString *descriptionInfo;
+@property (nonatomic, strong) NSString *picUrl;
+@property (nonatomic, strong) NSString *url;
 @end

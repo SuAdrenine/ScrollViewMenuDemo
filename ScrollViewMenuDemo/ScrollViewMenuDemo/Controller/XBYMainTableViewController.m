@@ -13,8 +13,10 @@
 #import <MJExtension.h>
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 #import "XBYDataModel.h"
+#import "XBYMainTableViewCell.h"
+#import "XBYMainDetailTableViewController.h"
 
-@interface XBYMainTableViewController ()<UITableViewDelegate, UITableViewDataSource,XBYBaseTableViewDelegate,UIAlertViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
+@interface XBYMainTableViewController ()<UITableViewDelegate, UITableViewDataSource,XBYBaseTableViewDelegate,XBYMainCellDelegate,UIAlertViewDelegate,DZNEmptyDataSetSource,DZNEmptyDataSetDelegate>
 
 @end
 
@@ -56,7 +58,7 @@
     return self.dataArr.count;
 }
 
-static NSString *cellClassStr = @"XBYOrderCell";
+static NSString *cellClassStr = @"XBYMainTableViewCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[cellClassStr stringByAppendingString:_tabKey]];
     if (!cell) {
@@ -64,6 +66,7 @@ static NSString *cellClassStr = @"XBYOrderCell";
     }
     [self configureCell:cell indexPath:indexPath];
     return cell;
+
 }
 
 #pragma mark - UITableViewDelegate
@@ -87,7 +90,14 @@ static NSString *cellClassStr = @"XBYOrderCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    XBYDataModel *item = self.dataArr[indexPath.row];
+    _currentOrderItem = item;
     
+    XBYMainDetailTableViewController *orderDetailVC = [XBYMainDetailTableViewController new];
+    orderDetailVC.hidesBottomBarWhenPushed = YES;
+    orderDetailVC.item = item;
+    orderDetailVC.delegate = self;
+    [self.parentViewController.navigationController pushViewController:orderDetailVC animated:YES];
 }
 
 #pragma mark - XBYRefreshTableViewDelegate
@@ -138,7 +148,9 @@ static NSString *cellClassStr = @"XBYOrderCell";
 
 #pragma mark - private method
 - (void)configureCell:(UITableViewCell *)cell indexPath:(NSIndexPath *)indexPath {
-    
+    XBYDataModel *item = self.dataArr[indexPath.row];
+    ((XBYMainTableViewCell *)cell).item = item;
+    ((XBYMainTableViewCell *)cell).delegate = self;
 }
 
 - (void)endTableViewRefreshing {
@@ -151,12 +163,58 @@ static NSString *cellClassStr = @"XBYOrderCell";
 
 
 /**
- 加载订单列表
+ 加载数据列表
  
  @param needResetDataArr 是否重置tableView的page
  @param showActivity 是否显示加载圈
  */
 - (void)loadDataWithNeedResetDataArr:(BOOL)needResetDataArr showActivity:(BOOL)showActivity {
+    if (needResetDataArr) {
+        self.dataArr = @[].mutableCopy;
+        [self.tableView reloadData];
+        
+        [self.tableView resetPage];
+    }
+    self.tableView.totalSize = 50;
+    NSNumber *myPageNums = [[NSNumber alloc ] initWithInteger:self.tableView.pageSize];
+    
+    NSDictionary *params = @{@"key":@"353eedb9ddb49d8b758523f8251d1ea1",
+                             @"num": myPageNums};
+    
+    [self startAnimation];
+    TPGET(fullHttpUrl(_tabKey), params, ^(NSURLSessionDataTask *task, id responseObject, BOOL suc) {
+        
+        NSLog(@"responseObject :%@",responseObject);
+        if (suc) {
+            NSMutableArray *array = [NSMutableArray array];
+            NSLog(@"responseObject :%@",responseObject);
+            
+            array = responseObject[@"newslist"];
+            NSDictionary *dic = [NSDictionary dictionary];
+            for (int i=0;i<[array count];i++) {
+                dic = array[i];
+                XBYDataModel *model = [XBYDataModel mj_objectWithKeyValues:dic];
+                [self.dataArr addObject:model];
+            }
+            
+            [self.tableView reloadData];
+            [self endAnimation];
+            [self endTableViewRefreshing];
+        } else {
+            NSLog(@"error ---- error");
+            [self.tableView pageDecreaseOne];
+            [self endTableViewRefreshing];
+            [self endAnimation];
+            
+            
+        }
+        
+    }, ^(NSURLSessionDataTask *task, NSError *error) {
+        NSLog(@"error--->%@",error);
+        [self.tableView pageDecreaseOne];
+        [self endTableViewRefreshing];
+        [self endAnimation];
+    });
 }
 
 #pragma mark - getter
@@ -181,6 +239,11 @@ static NSString *cellClassStr = @"XBYOrderCell";
     }
     return _tableView;
 }
+#pragma mrk - XBYMainCellDelegate
+-(void)orderCell:(id)cellView didClickBtnWithBtnTitle:(NSString *)title params:(NSDictionary *)params {
+    NSLog(@"你可能点了一个假的Button");
+}
+
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex {
     if (buttonIndex == 1) {

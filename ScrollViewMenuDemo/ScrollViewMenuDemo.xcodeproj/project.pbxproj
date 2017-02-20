@@ -9,14 +9,12 @@
 /* Begin PBXBuildFile section */
 		57F1DD901E53FA2D007FAA36 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DD8F1E53FA2D007FAA36 /* main.m */; };
 		57F1DD931E53FA2D007FAA36 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DD921E53FA2D007FAA36 /* AppDelegate.m */; };
-		57F1DD991E53FA2D007FAA36 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57F1DD971E53FA2D007FAA36 /* Main.storyboard */; };
 		57F1DD9B1E53FA2D007FAA36 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57F1DD9A1E53FA2D007FAA36 /* Assets.xcassets */; };
-		57F1DD9E1E53FA2D007FAA36 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57F1DD9C1E53FA2D007FAA36 /* LaunchScreen.storyboard */; };
 		57F1DDA91E53FA2D007FAA36 /* ScrollViewMenuDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DDA81E53FA2D007FAA36 /* ScrollViewMenuDemoTests.m */; };
 		57F1DDB41E53FA2D007FAA36 /* ScrollViewMenuDemoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DDB31E53FA2D007FAA36 /* ScrollViewMenuDemoUITests.m */; };
 		57F1DDCA1E53FDB4007FAA36 /* XBYLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DDC91E53FDB4007FAA36 /* XBYLabel.m */; };
 		57F1DDCE1E540053007FAA36 /* XBYMainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DDCD1E540053007FAA36 /* XBYMainTableViewController.m */; };
-		57F1DDD11E540074007FAA36 /* XBYViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DDD01E540074007FAA36 /* XBYViewController.m */; };
+		57F1DDD11E540074007FAA36 /* XBYMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DDD01E540074007FAA36 /* XBYMainViewController.m */; };
 		57F1DDD41E5401C8007FAA36 /* XBYBaseTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DDD31E5401C8007FAA36 /* XBYBaseTableView.m */; };
 		57F1DDD71E5426FF007FAA36 /* XBYDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DDD61E5426FF007FAA36 /* XBYDataModel.m */; };
 		57F1DE0A1E542762007FAA36 /* IQNSArray+Sort.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DDDC1E542762007FAA36 /* IQNSArray+Sort.m */; };
@@ -44,6 +42,12 @@
 		57F1DE311E543294007FAA36 /* UIViewController+ActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DE301E543294007FAA36 /* UIViewController+ActivityIndicatorView.m */; };
 		57F1DECA1E552D4C007FAA36 /* UIViewController+AddBarUnderNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DEC91E552D4C007FAA36 /* UIViewController+AddBarUnderNavigationBar.m */; };
 		57F1DECD1E552EA9007FAA36 /* XBYBaseScrollViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DECC1E552EA9007FAA36 /* XBYBaseScrollViewController.m */; };
+		57F1DF251E5ABBAD007FAA36 /* XBYMainTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DF241E5ABBAD007FAA36 /* XBYMainTableViewCell.m */; };
+		57F1DF281E5ACE65007FAA36 /* XBYMainTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DF271E5ACE65007FAA36 /* XBYMainTabBarViewController.m */; };
+		57F1DF2B1E5ACE9B007FAA36 /* XBYSecondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DF2A1E5ACE9B007FAA36 /* XBYSecondViewController.m */; };
+		57F1DF2E1E5ACEA9007FAA36 /* XBYThirdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DF2D1E5ACEA9007FAA36 /* XBYThirdViewController.m */; };
+		57F1DF311E5ACEB3007FAA36 /* XBYFourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DF301E5ACEB3007FAA36 /* XBYFourViewController.m */; };
+		57F1DF341E5AD363007FAA36 /* XBYMainDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F1DF331E5AD363007FAA36 /* XBYMainDetailTableViewController.m */; };
 		7E206581747A6FA821898EC5 /* libPods-ScrollViewMenuDemo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4B5EC92638760E91928D7A7F /* libPods-ScrollViewMenuDemo.a */; };
 /* End PBXBuildFile section */
 
@@ -70,9 +74,7 @@
 		57F1DD8F1E53FA2D007FAA36 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		57F1DD911E53FA2D007FAA36 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = ../AppDelegate.h; sourceTree = "<group>"; };
 		57F1DD921E53FA2D007FAA36 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = ../AppDelegate.m; sourceTree = "<group>"; };
-		57F1DD981E53FA2D007FAA36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57F1DD9A1E53FA2D007FAA36 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = ../Assets.xcassets; sourceTree = "<group>"; };
-		57F1DD9D1E53FA2D007FAA36 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		57F1DD9F1E53FA2D007FAA36 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		57F1DDA41E53FA2D007FAA36 /* ScrollViewMenuDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ScrollViewMenuDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		57F1DDA81E53FA2D007FAA36 /* ScrollViewMenuDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScrollViewMenuDemoTests.m; sourceTree = "<group>"; };
@@ -85,8 +87,8 @@
 		57F1DDCB1E53FDFC007FAA36 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		57F1DDCC1E540053007FAA36 /* XBYMainTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYMainTableViewController.h; sourceTree = "<group>"; };
 		57F1DDCD1E540053007FAA36 /* XBYMainTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYMainTableViewController.m; sourceTree = "<group>"; };
-		57F1DDCF1E540074007FAA36 /* XBYViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYViewController.h; sourceTree = "<group>"; };
-		57F1DDD01E540074007FAA36 /* XBYViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYViewController.m; sourceTree = "<group>"; };
+		57F1DDCF1E540074007FAA36 /* XBYMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYMainViewController.h; sourceTree = "<group>"; };
+		57F1DDD01E540074007FAA36 /* XBYMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYMainViewController.m; sourceTree = "<group>"; };
 		57F1DDD21E5401C8007FAA36 /* XBYBaseTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYBaseTableView.h; sourceTree = "<group>"; };
 		57F1DDD31E5401C8007FAA36 /* XBYBaseTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYBaseTableView.m; sourceTree = "<group>"; };
 		57F1DDD51E5426FF007FAA36 /* XBYDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYDataModel.h; sourceTree = "<group>"; };
@@ -143,6 +145,18 @@
 		57F1DEC91E552D4C007FAA36 /* UIViewController+AddBarUnderNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+AddBarUnderNavigationBar.m"; sourceTree = "<group>"; };
 		57F1DECB1E552EA9007FAA36 /* XBYBaseScrollViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYBaseScrollViewController.h; sourceTree = "<group>"; };
 		57F1DECC1E552EA9007FAA36 /* XBYBaseScrollViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYBaseScrollViewController.m; sourceTree = "<group>"; };
+		57F1DF231E5ABBAD007FAA36 /* XBYMainTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYMainTableViewCell.h; sourceTree = "<group>"; };
+		57F1DF241E5ABBAD007FAA36 /* XBYMainTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYMainTableViewCell.m; sourceTree = "<group>"; };
+		57F1DF261E5ACE65007FAA36 /* XBYMainTabBarViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYMainTabBarViewController.h; sourceTree = "<group>"; };
+		57F1DF271E5ACE65007FAA36 /* XBYMainTabBarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYMainTabBarViewController.m; sourceTree = "<group>"; };
+		57F1DF291E5ACE9B007FAA36 /* XBYSecondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYSecondViewController.h; sourceTree = "<group>"; };
+		57F1DF2A1E5ACE9B007FAA36 /* XBYSecondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYSecondViewController.m; sourceTree = "<group>"; };
+		57F1DF2C1E5ACEA9007FAA36 /* XBYThirdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYThirdViewController.h; sourceTree = "<group>"; };
+		57F1DF2D1E5ACEA9007FAA36 /* XBYThirdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYThirdViewController.m; sourceTree = "<group>"; };
+		57F1DF2F1E5ACEB3007FAA36 /* XBYFourViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYFourViewController.h; sourceTree = "<group>"; };
+		57F1DF301E5ACEB3007FAA36 /* XBYFourViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYFourViewController.m; sourceTree = "<group>"; };
+		57F1DF321E5AD363007FAA36 /* XBYMainDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XBYMainDetailTableViewController.h; sourceTree = "<group>"; };
+		57F1DF331E5AD363007FAA36 /* XBYMainDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XBYMainDetailTableViewController.m; sourceTree = "<group>"; };
 		82BA37E9F775F9E789A33871 /* Pods-ScrollViewMenuDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrollViewMenuDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ScrollViewMenuDemo/Pods-ScrollViewMenuDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		F039878213591FBFF79812D1 /* Pods-ScrollViewMenuDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ScrollViewMenuDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-ScrollViewMenuDemo/Pods-ScrollViewMenuDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -240,10 +254,20 @@
 			children = (
 				57F1DECB1E552EA9007FAA36 /* XBYBaseScrollViewController.h */,
 				57F1DECC1E552EA9007FAA36 /* XBYBaseScrollViewController.m */,
-				57F1DDCF1E540074007FAA36 /* XBYViewController.h */,
-				57F1DDD01E540074007FAA36 /* XBYViewController.m */,
+				57F1DDCF1E540074007FAA36 /* XBYMainViewController.h */,
+				57F1DDD01E540074007FAA36 /* XBYMainViewController.m */,
 				57F1DDCC1E540053007FAA36 /* XBYMainTableViewController.h */,
 				57F1DDCD1E540053007FAA36 /* XBYMainTableViewController.m */,
+				57F1DF261E5ACE65007FAA36 /* XBYMainTabBarViewController.h */,
+				57F1DF271E5ACE65007FAA36 /* XBYMainTabBarViewController.m */,
+				57F1DF291E5ACE9B007FAA36 /* XBYSecondViewController.h */,
+				57F1DF2A1E5ACE9B007FAA36 /* XBYSecondViewController.m */,
+				57F1DF2C1E5ACEA9007FAA36 /* XBYThirdViewController.h */,
+				57F1DF2D1E5ACEA9007FAA36 /* XBYThirdViewController.m */,
+				57F1DF2F1E5ACEB3007FAA36 /* XBYFourViewController.h */,
+				57F1DF301E5ACEB3007FAA36 /* XBYFourViewController.m */,
+				57F1DF321E5AD363007FAA36 /* XBYMainDetailTableViewController.h */,
+				57F1DF331E5AD363007FAA36 /* XBYMainDetailTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -262,9 +286,7 @@
 			children = (
 				57F1DD911E53FA2D007FAA36 /* AppDelegate.h */,
 				57F1DD921E53FA2D007FAA36 /* AppDelegate.m */,
-				57F1DD971E53FA2D007FAA36 /* Main.storyboard */,
 				57F1DD9A1E53FA2D007FAA36 /* Assets.xcassets */,
-				57F1DD9C1E53FA2D007FAA36 /* LaunchScreen.storyboard */,
 				57F1DD9F1E53FA2D007FAA36 /* Info.plist */,
 				57F1DDCB1E53FDFC007FAA36 /* PrefixHeader.pch */,
 			);
@@ -278,6 +300,8 @@
 				57F1DDC91E53FDB4007FAA36 /* XBYLabel.m */,
 				57F1DDD21E5401C8007FAA36 /* XBYBaseTableView.h */,
 				57F1DDD31E5401C8007FAA36 /* XBYBaseTableView.m */,
+				57F1DF231E5ABBAD007FAA36 /* XBYMainTableViewCell.h */,
+				57F1DF241E5ABBAD007FAA36 /* XBYMainTableViewCell.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -556,10 +580,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57F1DD9E1E53FA2D007FAA36 /* LaunchScreen.storyboard in Resources */,
 				57F1DD9B1E53FA2D007FAA36 /* Assets.xcassets in Resources */,
 				57F1DE171E542762007FAA36 /* IQKeyboardManager.bundle in Resources */,
-				57F1DD991E53FA2D007FAA36 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,15 +658,20 @@
 				57F1DE131E542762007FAA36 /* IQBarButtonItem.m in Sources */,
 				57F1DE121E542762007FAA36 /* IQTextView.m in Sources */,
 				57F1DECA1E552D4C007FAA36 /* UIViewController+AddBarUnderNavigationBar.m in Sources */,
+				57F1DF281E5ACE65007FAA36 /* XBYMainTabBarViewController.m in Sources */,
 				57F1DE0B1E542762007FAA36 /* IQUIScrollView+Additions.m in Sources */,
+				57F1DF2B1E5ACE9B007FAA36 /* XBYSecondViewController.m in Sources */,
 				57F1DE0F1E542762007FAA36 /* IQUIWindow+Hierarchy.m in Sources */,
+				57F1DF341E5AD363007FAA36 /* XBYMainDetailTableViewController.m in Sources */,
 				57F1DDCE1E540053007FAA36 /* XBYMainTableViewController.m in Sources */,
 				57F1DE2E1E543239007FAA36 /* UIViewController+Toast.m in Sources */,
 				57F1DE0D1E542762007FAA36 /* IQUIView+Hierarchy.m in Sources */,
 				57F1DDCA1E53FDB4007FAA36 /* XBYLabel.m in Sources */,
 				57F1DE0C1E542762007FAA36 /* IQUITextFieldView+Additions.m in Sources */,
 				57F1DE1B1E542762007FAA36 /* UITableView+FDTemplateLayoutCell.m in Sources */,
+				57F1DF251E5ABBAD007FAA36 /* XBYMainTableViewCell.m in Sources */,
 				57F1DD931E53FA2D007FAA36 /* AppDelegate.m in Sources */,
+				57F1DF311E5ACEB3007FAA36 /* XBYFourViewController.m in Sources */,
 				57F1DE101E542762007FAA36 /* IQKeyboardManager.m in Sources */,
 				57F1DE1C1E542763007FAA36 /* UITableView+FDTemplateLayoutCellDebug.m in Sources */,
 				57F1DE161E542762007FAA36 /* IQUIView+IQKeyboardToolbar.m in Sources */,
@@ -660,9 +687,10 @@
 				57F1DE2A1E543051007FAA36 /* TPHttpManager.m in Sources */,
 				57F1DE291E543051007FAA36 /* AFHTTPSessionManager+Parameters.m in Sources */,
 				57F1DE191E542762007FAA36 /* UITableView+FDIndexPathHeightCache.m in Sources */,
+				57F1DF2E1E5ACEA9007FAA36 /* XBYThirdViewController.m in Sources */,
 				57F1DE0E1E542762007FAA36 /* IQUIViewController+Additions.m in Sources */,
 				57F1DE1A1E542762007FAA36 /* UITableView+FDKeyedHeightCache.m in Sources */,
-				57F1DDD11E540074007FAA36 /* XBYViewController.m in Sources */,
+				57F1DDD11E540074007FAA36 /* XBYMainViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -696,27 +724,6 @@
 			targetProxy = 57F1DDB01E53FA2D007FAA36 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
-
-/* Begin PBXVariantGroup section */
-		57F1DD971E53FA2D007FAA36 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				57F1DD981E53FA2D007FAA36 /* Base */,
-			);
-			name = Main.storyboard;
-			path = ..;
-			sourceTree = "<group>";
-		};
-		57F1DD9C1E53FA2D007FAA36 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				57F1DD9D1E53FA2D007FAA36 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			path = ..;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		57F1DDB61E53FA2D007FAA36 /* Debug */ = {

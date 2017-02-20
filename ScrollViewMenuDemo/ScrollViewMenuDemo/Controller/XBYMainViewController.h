@@ -1,5 +1,5 @@
 //
-//  XBYViewController.h
+//  XBYMainViewController.h
 //  ScrollViewMenuDemo
 //
 //  Created by xby on 2017/2/15.
@@ -8,11 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@interface XBYViewController : UIViewController
+@interface XBYMainViewController : UIViewController
 
 - (void)refreshControllerAtIndex:(NSInteger)index;
 
 - (void)refreshCurrentController;
-
 
 @end

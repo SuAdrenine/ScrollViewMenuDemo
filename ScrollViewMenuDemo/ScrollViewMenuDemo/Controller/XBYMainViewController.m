@@ -1,18 +1,18 @@
 //
-//  XBYViewController.m
+//  XBYMainViewController.m
 //  ScrollViewMenuDemo
 //
 //  Created by xby on 2017/2/15.
 //  Copyright © 2017年 xby. All rights reserved.
 //
 
-#import "XBYViewController.h"
+#import "XBYMainViewController.h"
 #import "XBYMainTableViewController.h"
 #import "XBYLabel.h"
 #import <Masonry.h>
 #import "UIViewController+AddBarUnderNavigationBar.h"
 
-@interface XBYViewController ()<UIScrollViewDelegate,XBYMainTableViewControllerDelegate>
+@interface XBYMainViewController ()<UIScrollViewDelegate,XBYMainTableViewControllerDelegate>
 
 @property (nonatomic, strong) UIScrollView *smallScrollView;
 
@@ -22,7 +22,7 @@
 
 @end
 
-@implementation XBYViewController {
+@implementation XBYMainViewController {
     CGFloat smallScrollViewH;
     XBYMainTableViewController *needScrollToTopPage;
     NSMutableArray *childVcs;
@@ -31,12 +31,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"滑动菜单";
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.view.backgroundColor = kViewBackgroundColor;
     
     smallScrollViewH = 44;
-    
+    [self setUpNavigationBaritems];
     [self.view addSubview:self.smallScrollView];
     [self.view addSubview:self.bigScrollView];
     [self setLayouts];
@@ -83,6 +82,27 @@
 }
 
 #pragma mark - private method
+- (void)setUpNavigationBaritems {
+    
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"无消息"] style:UIBarButtonItemStylePlain target:self action:@selector(msgCenterAction)];
+    
+    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"main_buy_list_search"] style:UIBarButtonItemStylePlain target:self action:@selector(searchAction)];
+    searchItem.imageInsets = UIEdgeInsetsMake(0, 10, 0, -10);
+    
+    UIBarButtonItem *negativeSpacer1 = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    negativeSpacer1.width = -5;
+    NSArray *items = @[negativeSpacer1,rightItem, searchItem];
+    self.navigationItem.rightBarButtonItems = items;
+}
+
+-(void)msgCenterAction{
+    NSLog(@"消息中心");
+}
+
+-(void)searchAction{
+    NSLog(@"搜索");
+}
+
 - (void)addControllers {
     childVcs = @[].mutableCopy;
     for (int i = 0; i < self.orderStatusArr.count; i++) {
@@ -216,6 +236,16 @@
     [self setScrollToTopWithTableViewIndex:titlelable.tag];
 }
 
+#pragma mark - GGSOrderTableViewControllerDelegate
+- (void)orderTableViewController:(XBYMainTableViewController *)ovc
+didFinishOperateOrderWithBtnTitle:(NSString *)title {   //根据按钮状态进行刷新数据
+    if ([title isEqualToString:@"title1"]) {
+        [self refreshControllerAtIndex:2];
+    } else if ([title isEqualToString:@"title2"]) {
+        [self refreshControllerAtIndex:3];
+    }
+}
+
 #pragma mark - getter
 - (UIScrollView *)smallScrollView {
     if (!_smallScrollView) {
@@ -243,14 +273,14 @@
 
 - (NSArray *)orderStatusArr {
     if (!_orderStatusArr) {
-        _orderStatusArr = @[@{@"name":@"推荐",@"tabKey":@"01"},
-                            @{@"name":@"美女",@"tabKey":@"02"},
-                            @{@"name":@"汽车",@"tabKey":@"03"},
-                            @{@"name":@"科技",@"tabKey":@"04"},
-                            @{@"name":@"军事",@"tabKey":@"05"},
-                            @{@"name":@"笑话",@"tabKey":@"06"},
-                            @{@"name":@"视频",@"tabKey":@"07"},
-                            @{@"name":@"生活",@"tabKey":@"08"},
+        _orderStatusArr = @[@{@"name":@"社会",@"tabKey":@"social"},
+                            @{@"name":@"国内",@"tabKey":@"guonei"},
+                            @{@"name":@"国际",@"tabKey":@"world"},
+                            @{@"name":@"体育",@"tabKey":@"tiyu"},
+                            @{@"name":@"科技",@"tabKey":@"keji"},
+                            @{@"name":@"美女",@"tabKey":@"meinv"},
+                            @{@"name":@"健康",@"tabKey":@"health"},
+                            @{@"name":@"生活",@"tabKey":@"huabian"},
                             ];
     }
     return _orderStatusArr;
